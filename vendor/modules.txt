@@ -1,7 +1,13 @@
+# github.com/biguatch/msjwt v1.0.0
+github.com/biguatch/msjwt
 # github.com/biguatch/mslog v1.0.1
 github.com/biguatch/mslog
+# github.com/dgrijalva/jwt-go v3.2.0+incompatible
+github.com/dgrijalva/jwt-go
 # github.com/getsentry/sentry-go v0.3.0
 github.com/getsentry/sentry-go
+# github.com/google/uuid v1.1.1
+github.com/google/uuid
 # github.com/gorilla/handlers v1.4.2
 github.com/gorilla/handlers
 # github.com/gorilla/mux v1.7.3
