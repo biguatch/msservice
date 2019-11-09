@@ -15,7 +15,7 @@ func (container *Container) Authenticate(next http.Handler) http.HandlerFunc {
 					Message: "unauthorized",
 				},
 			}
-			container.service.Respond(w, *resp, http.StatusUnauthorized)
+			resp.SendResponse(w, http.StatusUnauthorized)
 			return
 		}
 		next.ServeHTTP(w, r)

@@ -15,7 +15,8 @@ func (container *Container) AdminOnly(next http.Handler) http.HandlerFunc {
 					Message: "unauthorized",
 				},
 			}
-			container.service.Respond(w, *resp, http.StatusUnauthorized)
+
+			resp.SendResponse(w, http.StatusUnauthorized)
 			return
 		}
 
@@ -28,7 +29,7 @@ func (container *Container) AdminOnly(next http.Handler) http.HandlerFunc {
 					Message: "unauthorized",
 				},
 			}
-			container.service.Respond(w, *resp, http.StatusUnauthorized)
+			resp.SendResponse(w, http.StatusUnauthorized)
 			return
 		}
 
