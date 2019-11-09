@@ -1,4 +1,4 @@
-# github.com/biguatch/msjwt v1.0.0
+# github.com/biguatch/msjwt v1.0.1
 github.com/biguatch/msjwt
 # github.com/biguatch/mslog v1.0.1
 github.com/biguatch/mslog

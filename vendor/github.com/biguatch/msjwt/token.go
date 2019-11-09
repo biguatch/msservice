@@ -9,6 +9,11 @@ import (
 	"github.com/google/uuid"
 )
 
+type TokenInterface interface {
+	Generate(id string, isAdmin bool) (string, error)
+	Validate(str string) (jwt.MapClaims, error)
+}
+
 type Token struct {
 	Config *Config
 }

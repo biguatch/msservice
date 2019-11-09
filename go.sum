@@ -13,6 +13,8 @@ github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973/go.mod h1:Dwedo/Wpr24
 github.com/beorn7/perks v1.0.0/go.mod h1:KWe93zE9D1o94FZ5RNwFwVgaQK1VOXiVxmqh+CedLV8=
 github.com/biguatch/msjwt v1.0.0 h1:xwpll0rgdTU+Yo9gXGzVvLg2g/UJFCJkSBdrcqrV2v0=
 github.com/biguatch/msjwt v1.0.0/go.mod h1:nMBFD8tretyRq9qfrHKYvwlA431Ydd4T6tzBnMilrxo=
+github.com/biguatch/msjwt v1.0.1 h1:/SCAXJeHxwOY9yVHDWQbielPrzNhfE0pYbWgQOB8OTs=
+github.com/biguatch/msjwt v1.0.1/go.mod h1:nMBFD8tretyRq9qfrHKYvwlA431Ydd4T6tzBnMilrxo=
 github.com/biguatch/mslog v1.0.0 h1:55r9MnE6DsGUDgdNoDv+vg0T2mAsljoU3WD+z18mYcA=
 github.com/biguatch/mslog v1.0.0/go.mod h1:94YmFsHcJnXl1dAmdSCk3d3bKCOz3tih0QId0dyLAdQ=
 github.com/biguatch/mslog v1.0.1 h1:wgVRY1mAqcJRcNkp9SPq4aDoRJHVeo3LW1/xDYs+fAM=
