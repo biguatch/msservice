@@ -2,7 +2,6 @@ package msservice
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"time"
@@ -12,6 +11,13 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
 )
+
+type ServiceInterface interface {
+	AddMiddleware(mws ...mux.MiddlewareFunc)
+	AddRouteHandler(path string, handler http.Handler, methods ...string)
+	AddRouteHandlerFunc(path string, f func(http.ResponseWriter, *http.Request), methods ...string)
+	ServeAPI(ctx context.Context)
+}
 
 type Service struct {
 	Name   string
@@ -49,23 +55,6 @@ func (service *Service) AddRouteHandler(path string, handler http.Handler, metho
 
 func (service *Service) AddRouteHandlerFunc(path string, f func(http.ResponseWriter, *http.Request), methods ...string) {
 	service.Router.HandleFunc(path, f).Methods(methods...)
-}
-
-func (service *Service) Respond(w http.ResponseWriter, data Response, status int) {
-	if data.Error != nil {
-		service.Logger.SentryException(data.Error)
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(status)
-	_ = json.NewEncoder(w).Encode(data)
-}
-
-func (service *Service) Decode(r *http.Request, v interface{}) error {
-	if err := json.NewDecoder(r.Body).Decode(v); err != nil {
-		return err
-	}
-	return nil
 }
 
 func (service *Service) ServeAPI(ctx context.Context) {
