@@ -8,8 +8,8 @@ import (
 	"github.com/biguatch/msservice"
 )
 
-func (container *Container) CheckJwt(next http.Handler) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
+func (container *Container) CheckJwt(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		authHeader := r.Header.Get("Authorization")
 		if authHeader == "" {
 			next.ServeHTTP(w, r)
@@ -34,5 +34,5 @@ func (container *Container) CheckJwt(next http.Handler) http.HandlerFunc {
 		})
 
 		next.ServeHTTP(w, r.WithContext(ctx))
-	}
+	})
 }
