@@ -12,5 +12,6 @@ func (error *Error) Error() string {
 type Response struct {
 	Success bool        `json:"success"`
 	Data    interface{} `json:"data,omitempty"`
+	Meta    interface{} `json:"meta,omitempty"`
 	Error   *Error      `json:"error,omitempty"`
 }
