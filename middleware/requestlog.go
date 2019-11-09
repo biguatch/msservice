@@ -15,7 +15,8 @@ func (container *Container) RequestLog(next http.Handler) http.Handler {
 			WithField("UserAgent", r.UserAgent()).
 			WithField("Referrer", r.Referer()).
 			WithField("Proto", r.Proto).
-			WithField("RemoteIP", ipFromHostPort(r.RemoteAddr))
+			WithField("RemoteIP", ipFromHostPort(r.RemoteAddr)).
+			Info()
 		next.ServeHTTP(w, r)
 	})
 }
