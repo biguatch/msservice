@@ -61,6 +61,13 @@ func (service *Service) Respond(w http.ResponseWriter, data Response, status int
 	_ = json.NewEncoder(w).Encode(data)
 }
 
+func (service *Service) Decode(r *http.Request, v interface{}) error {
+	if err := json.NewDecoder(r.Body).Decode(v); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (service *Service) ServeAPI(ctx context.Context) {
 	cors := handlers.CORS(
 		handlers.AllowedOrigins([]string{"*"}),
