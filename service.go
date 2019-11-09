@@ -28,6 +28,7 @@ func NewService(name string, config *Config, logger *mslog.Logger) (service *Ser
 	}
 
 	service.Router = crearteRouter(service)
+
 	return service, nil
 }
 

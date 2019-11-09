@@ -1,4 +1,4 @@
-# github.com/biguatch/mslog v0.0.0-20191108203858-202955e70de3
+# github.com/biguatch/mslog v1.0.1
 github.com/biguatch/mslog
 # github.com/getsentry/sentry-go v0.3.0
 github.com/getsentry/sentry-go
