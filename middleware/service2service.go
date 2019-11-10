@@ -15,21 +15,17 @@ func CreateService2Service(localSecret string) func(next http.Handler) http.Hand
 				next.ServeHTTP(w, r)
 				return
 			}
+			incoming := r.Header.Get("Service-2-Service")
 
 			hm := hmac.New(sha256.New, []byte(localSecret))
 			hm.Write([]byte(r.URL.Path))
-			calculated := hm.Sum(nil)
-			var incoming []byte
-			_, err := base64.StdEncoding.Decode(incoming, []byte(r.Header.Get("Service-2-Service")))
-			if err != nil {
+			calculated := base64.StdEncoding.EncodeToString(hm.Sum(nil))
+
+			if incoming != calculated {
 				next.ServeHTTP(w, r)
 				return
 			}
 
-			if !hmac.Equal(calculated, incoming) {
-				next.ServeHTTP(w, r)
-				return
-			}
 			ctx := context.WithValue(r.Context(), "service2service", true)
 
 			next.ServeHTTP(w, r.WithContext(ctx))
