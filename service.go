@@ -17,23 +17,24 @@ type ServiceInterface interface {
 	AddRouteHandler(path string, handler http.Handler, methods ...string)
 	AddRouteHandlerFunc(path string, f func(http.ResponseWriter, *http.Request), methods ...string)
 	ServeAPI(ctx context.Context)
+	GetLogger() *mslog.Logger
 }
 
 type Service struct {
-	Name   string
-	Config *Config
-	Router *mux.Router
-	Logger *mslog.Logger
+	name   string
+	config *Config
+	router *mux.Router
+	logger *mslog.Logger
 }
 
 func NewService(name string, config *Config, logger *mslog.Logger) (service *Service, err error) {
 	service = &Service{
-		Name:   name,
-		Config: config,
-		Logger: logger,
+		name:   name,
+		config: config,
+		logger: logger,
 	}
 
-	service.Router = crearteRouter(service)
+	service.router = crearteRouter(service)
 
 	return service, nil
 }
@@ -46,15 +47,19 @@ func crearteRouter(service *Service) *mux.Router {
 }
 
 func (service *Service) AddMiddleware(mws ...mux.MiddlewareFunc) {
-	service.Router.Use(mws...)
+	service.router.Use(mws...)
 }
 
 func (service *Service) AddRouteHandler(path string, handler http.Handler, methods ...string) {
-	service.Router.Handle(path, handler).Methods(methods...)
+	service.router.Handle(path, handler).Methods(methods...)
 }
 
 func (service *Service) AddRouteHandlerFunc(path string, f func(http.ResponseWriter, *http.Request), methods ...string) {
-	service.Router.HandleFunc(path, f).Methods(methods...)
+	service.router.HandleFunc(path, f).Methods(methods...)
+}
+
+func (service *Service) GetLogger() *mslog.Logger {
+	return service.logger
 }
 
 func (service *Service) ServeAPI(ctx context.Context) {
@@ -65,8 +70,8 @@ func (service *Service) ServeAPI(ctx context.Context) {
 	)
 
 	s := &http.Server{
-		Addr:        fmt.Sprintf(":%d", service.Config.Port),
-		Handler:     cors(service.Router),
+		Addr:        fmt.Sprintf(":%d", service.config.Port),
+		Handler:     cors(service.router),
 		ReadTimeout: 2 * time.Minute,
 	}
 
@@ -79,7 +84,7 @@ func (service *Service) ServeAPI(ctx context.Context) {
 		close(done)
 	}()
 
-	logrus.Infof("serving api at http://0.0.0.0:%d", service.Config.Port)
+	logrus.Infof("serving api at http://0.0.0.0:%d", service.config.Port)
 	if err := s.ListenAndServe(); err != http.ErrServerClosed {
 		logrus.Error(err)
 	}

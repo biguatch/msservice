@@ -8,7 +8,7 @@ import (
 
 func (container *Container) RequestLog(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		container.service.Logger.Logrus().
+		container.service.GetLogger().Logrus().
 			WithField("RequestTime", time.Now()).
 			WithField("RequestMethod", r.Method).
 			WithField("RequestUrl", r.URL.String()).
