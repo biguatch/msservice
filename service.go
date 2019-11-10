@@ -18,6 +18,7 @@ type ServiceInterface interface {
 	AddRouteHandlerFunc(path string, f func(http.ResponseWriter, *http.Request), methods ...string)
 	ServeAPI(ctx context.Context)
 	GetLogger() *mslog.Logger
+	crearteRouter() *mux.Router
 }
 
 type Service struct {
@@ -34,12 +35,12 @@ func NewService(name string, config *Config, logger *mslog.Logger) (service *Ser
 		logger: logger,
 	}
 
-	service.router = crearteRouter(service)
+	service.router = service.crearteRouter()
 
 	return service, nil
 }
 
-func crearteRouter(service *Service) *mux.Router {
+func (service *Service) crearteRouter() *mux.Router {
 	router := mux.NewRouter()
 	router.StrictSlash(true)
 
