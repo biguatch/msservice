@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func CreateService2Service(localSecret string) func(next http.Handler) http.Handler {
+func (container *Container) Service2ServiceAuthHeader(localSecret string) func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			if r.Header.Get("Service-2-Service") == "" {

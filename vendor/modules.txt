@@ -2,6 +2,8 @@
 github.com/biguatch/msjwt
 # github.com/biguatch/mslog v1.0.1
 github.com/biguatch/mslog
+# github.com/biguatch/msutil v1.0.0
+github.com/biguatch/msutil
 # github.com/davecgh/go-spew v1.1.1
 github.com/davecgh/go-spew/spew
 # github.com/dgrijalva/jwt-go v3.2.0+incompatible
@@ -23,9 +25,7 @@ github.com/sirupsen/logrus
 # github.com/stretchr/objx v0.1.1
 github.com/stretchr/objx
 # github.com/stretchr/testify v1.4.0
-github.com/stretchr/testify
 github.com/stretchr/testify/assert
-github.com/stretchr/testify/http
 github.com/stretchr/testify/mock
 # golang.org/x/sys v0.0.0-20190813064441-fde4db37ae7a
 golang.org/x/sys/unix

@@ -6,7 +6,7 @@ import (
 	"github.com/biguatch/msservice"
 )
 
-func (container *Container) Authenticate(next http.Handler) http.HandlerFunc {
+func (container *Container) MustBeUserAuthenticated(next http.Handler) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Context().Value("user") == nil {
 			resp := &msservice.Response{
