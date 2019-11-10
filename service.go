@@ -9,7 +9,6 @@ import (
 	"github.com/biguatch/mslog"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	"github.com/sirupsen/logrus"
 )
 
 type ServiceInterface interface {
@@ -38,6 +37,7 @@ type Service struct {
 	logger *mslog.Logger
 }
 
+// Create a new service and returns the pointer
 func NewService(name string, config *Config, logger *mslog.Logger) (service *Service, err error) {
 	service = &Service{
 		name:   name,
@@ -105,7 +105,7 @@ func (service *Service) ServeAPI(ctx context.Context) {
 		close(done)
 	}()
 
-	logrus.Infof("serving api at http://0.0.0.0:%d", service.config.Port)
+	service.GetLogger().Info(fmt.Sprintf("serving api at http://0.0.0.0:%d", service.config.Port))
 	if err := s.ListenAndServe(); err != http.ErrServerClosed {
 		service.GetLogger().Error(err)
 	}
