@@ -7,11 +7,11 @@ import (
 )
 
 type Container struct {
-	service  *msservice.Service
+	service  msservice.ServiceInterface
 	jwtToken msjwt.TokenInterface
 }
 
-func NewContainer(service *msservice.Service, jwtToken msjwt.TokenInterface) *Container {
+func NewContainer(service msservice.ServiceInterface, jwtToken msjwt.TokenInterface) *Container {
 	container := &Container{
 		service:  service,
 		jwtToken: jwtToken,
