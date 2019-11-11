@@ -27,7 +27,10 @@ type Response struct {
 func (r *Response) SendResponse(w http.ResponseWriter, status int) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
-	_ = json.NewEncoder(w).Encode(r)
+
+	if r.Data != nil && r.Meta != nil && r.Error != nil {
+		_ = json.NewEncoder(w).Encode(r)
+	}
 }
 
 func SendQuickResponse(w http.ResponseWriter, status int) {
