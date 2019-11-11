@@ -34,3 +34,10 @@ func SendQuickResponse(w http.ResponseWriter, status int) {
 	resp := Response{}
 	resp.SendResponse(w, status)
 }
+
+func SendError(w http.ResponseWriter, err Error, status int) {
+	resp := Response{
+		Error: &err,
+	}
+	resp.SendResponse(w, status)
+}
