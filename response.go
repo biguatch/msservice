@@ -29,3 +29,8 @@ func (r *Response) SendResponse(w http.ResponseWriter, status int) {
 	w.WriteHeader(status)
 	_ = json.NewEncoder(w).Encode(r)
 }
+
+func SendQuickResponse(w http.ResponseWriter, status int) {
+	resp := Response{}
+	resp.SendResponse(w, status)
+}
