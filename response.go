@@ -3,6 +3,7 @@ package msservice
 import (
 	"encoding/json"
 	"net/http"
+	"reflect"
 )
 
 type Error struct {
@@ -35,9 +36,18 @@ func SendQuickResponse(w http.ResponseWriter, status int) {
 	resp.SendResponse(w, status)
 }
 
-func SendError(w http.ResponseWriter, err Error, status int) {
-	resp := Response{
-		Error: &err,
+func SendError(w http.ResponseWriter, err interface{}, status int) {
+	switch reflect.ValueOf(&err).Elem().Interface().(type) {
+	case error:
+		err = &Error{Message: err.(string)}
+	default:
+		// And here I'm feeling dumb. ;)
+		err = &Error{Message: "unknown error"}
 	}
+
+	resp := Response{
+		Error: err.(*Error),
+	}
+
 	resp.SendResponse(w, status)
 }
