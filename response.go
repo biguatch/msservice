@@ -44,3 +44,12 @@ func SendError(w http.ResponseWriter, err error, status int) {
 
 	resp.SendResponse(w, status)
 }
+
+func SendData(w http.ResponseWriter, data interface{}, meta interface{}, status int) {
+	resp := Response{
+		Data: data,
+		Meta: meta,
+	}
+
+	resp.SendResponse(w, status)
+}
