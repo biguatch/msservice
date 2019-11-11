@@ -28,7 +28,7 @@ func (r *Response) SendResponse(w http.ResponseWriter, status int) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
 
-	if r.Data != nil && r.Meta != nil && r.Error != nil {
+	if r.Data != nil || r.Meta != nil || r.Error != nil {
 		_ = json.NewEncoder(w).Encode(r)
 	}
 }
