@@ -19,10 +19,9 @@ type ResponseInterface interface {
 }
 
 type Response struct {
-	Success bool        `json:"success"`
-	Data    interface{} `json:"data,omitempty"`
-	Meta    interface{} `json:"meta,omitempty"`
-	Error   *Error      `json:"error,omitempty"`
+	Data  interface{} `json:"data,omitempty"`
+	Meta  interface{} `json:"meta,omitempty"`
+	Error *Error      `json:"error,omitempty"`
 }
 
 func (r *Response) SendResponse(w http.ResponseWriter, status int) {

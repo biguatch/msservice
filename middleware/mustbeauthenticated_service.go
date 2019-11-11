@@ -13,7 +13,6 @@ func (container *Container) MustBeServiceAuthenticated(next http.Handler) http.H
 		service2service := r.Context().Value("service2service")
 		if msutil.CheckBoolen(service2service) != true {
 			resp := &msservice.Response{
-				Success: false,
 				Error: &msservice.Error{
 					Message: "unauthorized",
 				},

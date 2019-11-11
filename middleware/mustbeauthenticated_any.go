@@ -12,7 +12,6 @@ func (container *Container) MustBeAuthenticatedAny(next http.Handler) http.Handl
 		service2service := r.Context().Value("service2service")
 		if user == nil && service2service != true {
 			resp := &msservice.Response{
-				Success: false,
 				Error: &msservice.Error{
 					Message: "unauthorized",
 				},

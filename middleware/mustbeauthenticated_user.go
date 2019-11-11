@@ -10,7 +10,6 @@ func (container *Container) MustBeUserAuthenticated(next http.Handler) http.Hand
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Context().Value("user") == nil {
 			resp := &msservice.Response{
-				Success: false,
 				Error: &msservice.Error{
 					Message: "unauthorized",
 				},

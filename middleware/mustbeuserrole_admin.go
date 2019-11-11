@@ -10,7 +10,6 @@ func (container *Container) MustBeAdminUser(next http.Handler) http.HandlerFunc 
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Context().Value("user") == nil {
 			resp := &msservice.Response{
-				Success: false,
 				Error: &msservice.Error{
 					Message: "unauthorized",
 				},
@@ -24,7 +23,6 @@ func (container *Container) MustBeAdminUser(next http.Handler) http.HandlerFunc 
 
 		if !user.IsAdmin {
 			resp := &msservice.Response{
-				Success: false,
 				Error: &msservice.Error{
 					Message: "unauthorized",
 				},
