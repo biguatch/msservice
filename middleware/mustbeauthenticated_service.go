@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/biguatch/msutil"
@@ -12,12 +13,7 @@ func (container *Container) MustBeServiceAuthenticated(next http.Handler) http.H
 	return func(w http.ResponseWriter, r *http.Request) {
 		service2service := r.Context().Value("service2service")
 		if msutil.CheckBoolen(service2service) != true {
-			resp := &msservice.Response{
-				Error: &msservice.Error{
-					Message: "unauthorized",
-				},
-			}
-			resp.SendResponse(w, http.StatusUnauthorized)
+			msservice.SendError(w, errors.New("unauthorized"), http.StatusUnauthorized)
 			return
 		}
 		next.ServeHTTP(w, r)
