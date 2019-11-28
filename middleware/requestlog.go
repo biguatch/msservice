@@ -28,6 +28,18 @@ func (w *statusWriter) Write(b []byte) (int, error) {
 
 func (container *Container) RequestLog(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		willLog := true
+		for _, filterFunc := range container.requestLogFilters {
+			if filterFunc(r) {
+				willLog = false
+			}
+		}
+
+		if !willLog {
+			next.ServeHTTP(w, r)
+			return
+		}
+
 		reqTime := time.Now()
 		sw := statusWriter{ResponseWriter: w}
 
