@@ -19,7 +19,7 @@ type ResponseInterface interface {
 }
 
 type Response struct {
-	Content interface{} `json:"data,omitempty"`
+	Content interface{} `json:"content,omitempty"`
 	Meta    interface{} `json:"meta,omitempty"`
 	Error   *Error      `json:"error,omitempty"`
 }
