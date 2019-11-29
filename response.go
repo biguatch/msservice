@@ -19,16 +19,16 @@ type ResponseInterface interface {
 }
 
 type Response struct {
-	Data  interface{} `json:"data,omitempty"`
-	Meta  interface{} `json:"meta,omitempty"`
-	Error *Error      `json:"error,omitempty"`
+	Content interface{} `json:"data,omitempty"`
+	Meta    interface{} `json:"meta,omitempty"`
+	Error   *Error      `json:"error,omitempty"`
 }
 
 func (r *Response) SendResponse(w http.ResponseWriter, status int) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
 
-	if r.Data != nil || r.Meta != nil || r.Error != nil {
+	if r.Content != nil || r.Meta != nil || r.Error != nil {
 		_ = json.NewEncoder(w).Encode(r)
 	}
 }
@@ -48,10 +48,10 @@ func SendError(w http.ResponseWriter, err error, status int) {
 	resp.SendResponse(w, status)
 }
 
-func SendData(w http.ResponseWriter, data interface{}, meta interface{}, status int) {
+func SendData(w http.ResponseWriter, content interface{}, meta interface{}, status int) {
 	resp := Response{
-		Data: data,
-		Meta: meta,
+		Content: content,
+		Meta:    meta,
 	}
 
 	resp.SendResponse(w, status)
